@@ -1,0 +1,17 @@
+{
+  "name": "Webtop in Codespaces",
+  // Docker-in-Dockerを有効化する標準のFeature（機能）を追加
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+  // コンテナ作成後に自動でWebtop（Ubuntu/XFCE版）を起動
+  "postCreateCommand": "docker run -d --name=webtop -e PUID=1000 -e PGID=1000 -e TZ=Asia/Tokyo -p 3000:3000 --shm-size='1gb' --restart unless-stopped lscr.io/linuxserver/webtop:ubuntu-xfce",
+  // Webtopが使用する3000番ポートを開放してCodespaces側でフォワード
+  "forwardPorts": [3000],
+  "portsAttributes": {
+    "3000": {
+      "label": "Webtop Desktop",
+      "onAutoForward": "openPreview"
+    }
+  }
+}
